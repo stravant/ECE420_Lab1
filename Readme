@@ -1,0 +1,12 @@
+Read me for ECE420 Lab1
+
+In this folder, you will have the following files/scripts. Please read the comments in those files for detailed remarks.
+
+You need to compile the script before running. The executable file should be in the same folder where your other source scripts are placed.
+
+An overview for the files:
+
+timer.h			A macro definition file for time measurement
+matrixgen.c		A script to generate the random matrices as the input
+lab1IO			A file containing two functions for data loading and saving in your program, copy and paste them to the right position of your program.
+serialtester.c	A serial version for the matrix multiplication. We will check the correctness of your result using this script
