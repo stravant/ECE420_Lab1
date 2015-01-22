@@ -2,13 +2,14 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <pthread.h>
+#include <stdint.h>
 
 #include "lab1IO"
 #include "sys/time.h"
 #include "timer.h"
 #include <math.h>
 
-#define SZ 44100
+#define SZ 1024*1024
 
 /* Matrices and sizes. Calculating C = A*B, where A,B,C are of size NxN */
 int N;
@@ -33,7 +34,7 @@ void multiply_single() {
 
 /* Single worker task for multi threaded implemenation */
 void *multiply_block(void *rank_p) {
-	int rank = (int)rank_p;
+	int rank = (intptr_t)rank_p;
 	int root_p = sqrt(thread_count);
 	int blk_sz = N / root_p;
 
@@ -60,7 +61,7 @@ void *multiply_block(void *rank_p) {
 void multiply_multi() {
 	thread_array = malloc(sizeof(pthread_t)*thread_count);
 	for (int i = 0; i < thread_count; ++i) {
-		pthread_create(&thread_array[i], NULL, multiply_block, (void*)i);
+		pthread_create(&thread_array[i], NULL, multiply_block, (void*)(intptr_t)i);
 	}
 	for (int i = 0; i < thread_count; ++i) {
 		pthread_join(thread_array[i], NULL);
